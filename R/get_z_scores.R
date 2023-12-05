@@ -2,9 +2,6 @@
 #' @param data A size J*N dataframe
 #' @param l_ji_other__ A size *N dataframe
 #' @return A list containing Z scores and l_ji__
-#' @examples
-#' data = read.csv("geneCounts.tsv",sep="\t")
-#' get_z_scores(data)
 #' @export
 
 get_z_scores <- function(data, l_ji_other__=NULL){

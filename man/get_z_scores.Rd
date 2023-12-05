@@ -17,7 +17,3 @@ A list containing Z scores and l_ji__
 \description{
 get z score
 }
-\examples{
-data = read.csv("geneCounts.tsv",sep="\t")
-get_z_scores(data)
-}

@@ -7,7 +7,8 @@
 #' @param outlier_frequency the number of outliers needed to be injected in each sample
 #' @param z_score the magnitude of the outlies injected
 #' @param outlier_type injected, 'o', overexpression, 'u', underexpressed, 'b', both
-#' @export save the read table with injected outliers
+#' @export
+#save the read table with injected outliers
 inject_outliers = function (fname, outlier_frequency, z_score, outlier_type){
 
     name = file_path_sans_ext(fname)

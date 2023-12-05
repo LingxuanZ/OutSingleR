@@ -6,8 +6,8 @@ Author: Yuchen Lei, Kevin Jin, Lingxuan Zhu
 Maintainer: Yuchen Lei <yclei@umich.edu>
 Description: 
     This package is used for detecting outliers from RNA Sequencing data using SVD decomposition and OPT algorithm. Use the fast_zscore_estimation function to run a gene count .tsv file to get an original z score for the read count. Then run this z score file using optht_svd_zs function and get the final outlier score (zs file) and p_value (pv file). Basically, read count with smaller p_values indicate higher probability to be an outlier.
-Depends: dplyr
 License: GPL-3
+Depends: dplyr
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 NeedsCompilation: no
