@@ -3,6 +3,8 @@
 #' A function to inject outliers
 #' @import tools
 #' @import dplyr
+#' @import corpcor
+#' @import data.table
 #' @param fname the name of the gene count file to inject the outliers
 #' @param outlier_frequency the number of outliers needed to be injected in each sample
 #' @param z_score the magnitude of the outlies injected
@@ -15,7 +17,14 @@ inject_outliers = function (fname, outlier_frequency, z_score, outlier_type){
     ext = paste0(".",file_ext(fname))
     id_ = sprintf("-wo-f%d-%s-z%.2f", outlier_frequency,outlier_type,z_score)
 
-    df = read.csv(fname, sep="\t",row.names = 1, header = TRUE)
+    # df = read.csv(fname, sep="\t",row.names = 1, header = TRUE)
+    suppressWarnings({
+      df <- as.data.frame(fread(file=fname))
+    })
+    if("V1" %in% colnames(df)){
+      rownames(df) = df$V1
+      df = df[,2:ncol(df)]
+    }
     sf_ = matrix(get_size_factor(df),nrow=1,ncol=ncol(df))
     data__ = as.matrix(df)
     data_sf__ = sweep(data__,2,sf_,"/")
@@ -40,7 +49,7 @@ inject_outliers = function (fname, outlier_frequency, z_score, outlier_type){
     l_j_std_ = matrix(l_j_std_, nrow = nrow(data_sf__), ncol = 1)
     zs__ = sweep(sweep(l_ji__,1,l_j_,"-"),1,l_j_std_,"/")
 
-    svd_result <- svd(zs__)
+    svd_result <- fast.svd(zs__)
     U <- svd_result$u
     s <- svd_result$d
     VT = t(svd_result$v)

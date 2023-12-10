@@ -5,17 +5,26 @@
 #' @param data_file the name of z_score for the read count
 #' @import tools
 #' @import dplyr
+#' @import corpcor
+#' @import data.table
 #' @return absolute path of the saved file
 optht_svd_zs = function(data_file){
     out_basename = paste0(file_path_sans_ext(data_file),"-svd-optht")
     out_name_zs_optht = paste0(out_basename,"-zs.tsv")
     out_name_pv_optht = paste0(out_basename,"-pv.tsv")
 
-    df = read.csv(data_file, sep = "\t")
+    # df = read.csv(data_file, sep = "\t")
+    suppressWarnings({
+      df <- as.data.frame(fread(file=data_file))
+    })
+    if("V1" %in% colnames(df)){
+      rownames(df) = df$V1
+      df = df[,2:ncol(df)]
+    }
     data_original = clean_zs(as.matrix(df))
     data = data_original
 
-    svd_result = svd(data)
+    svd_result = fast.svd(data)
     U = svd_result$u
     s = svd_result$d
     VT = t(svd_result$v)

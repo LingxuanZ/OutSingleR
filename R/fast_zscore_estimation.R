@@ -3,10 +3,18 @@
 #' A function to estimate and generate a z-score matrix for the read count
 #' @import tools
 #' @import dplyr
+#' @import data.table
 #' @param data_file the path of the .csv or .tsv file
 #' @return absolute path of the saved file storing the z_scores data frame
 fast_zscore_estimation = function(data_file){
-    df = read.csv(data_file, sep="\t")
+    suppressWarnings({
+      df <- as.data.frame(fread(file=data_file))
+    })
+    if("V1" %in% colnames(df)){
+      rownames(df) = df$V1
+      df = df[,2:ncol(df)]
+    }
+
     ColName = names(df)
     if(is.character(df[,1])){
         row.names(df) = df[,1]
