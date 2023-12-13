@@ -115,12 +115,12 @@ inject_outliers = function (fname, outlier_frequency, z_score, outlier_type){
     colnames(outlier_mask_df) = colnames(df)
     fname_new = paste0(name,id_,ext)
     fname_outliers_new = sub(paste0(ext, "$"), paste0("-omask",ext), fname_new)
-    write.table(outlier_mask_df,fname_outliers_new,sep='\t')
+    write.table(outlier_mask_df,fname_outliers_new, sep='\t')
 
     data_with_outliers = data_wo__
     data_with_outliers[is.nan(data_with_outliers)] = data__[is.nan(data_with_outliers)]
     data_with_outliers_df = as.data.frame(round(data_with_outliers))
     rownames(data_with_outliers_df) = rownames(df)
     colnames(data_with_outliers_df) = colnames(df)
-    write.table(data_with_outliers_df,fname_new,sep='\t')
+    write.table(data_with_outliers_df,fname_new, sep='\t')
 }
