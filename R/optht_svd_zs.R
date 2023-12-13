@@ -8,6 +8,7 @@
 #' @import corpcor
 #' @import data.table
 #' @return absolute path of the saved file
+#' @export
 optht_svd_zs = function(data_file){
     out_basename = paste0(file_path_sans_ext(data_file),"-svd-optht")
     out_name_zs_optht = paste0(out_basename,"-zs.tsv")

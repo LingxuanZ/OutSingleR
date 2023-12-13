@@ -6,6 +6,7 @@
 #' @import data.table
 #' @param data_file the path of the .csv or .tsv file
 #' @return absolute path of the saved file storing the z_scores data frame
+#' @export
 fast_zscore_estimation = function(data_file){
     suppressWarnings({
       df <- as.data.frame(fread(file=data_file))
